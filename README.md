@@ -1,3 +1,3 @@
-# Reinforcement Learning (DDQN) for Time Series Forecast
+# Reinforcement Learning (DDQN)-Based Trading Bot
 
 Before Running, please make sure the relative path to pricedata.csv in either train.py or eval.py is corrected to fit your environment path
