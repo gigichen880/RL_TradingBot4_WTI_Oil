@@ -184,7 +184,7 @@ class Agent:
         return loss
 
     def save(self, episode):
-        torch.save(self.model.state_dict(), "models/{}_{}".format(self.model_name, episode))
+        torch.save(self.model.state_dict(), "models/{}_{}".format(self.model_name, episode+1))
 
     def load(self, state_size, action_size, noep):
         model = NN(state_size, action_size)

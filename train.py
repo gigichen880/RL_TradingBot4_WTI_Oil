@@ -1,4 +1,5 @@
 import torch
+import pandas as pd
 torch.autograd.set_detect_anomaly(True)
 import matplotlib.pyplot as plt
 from trading_bot.agent import Agent
@@ -25,15 +26,19 @@ def main(train_stock, val_stock, window_size, batch_size, ep_count,
                                    batch_size=batch_size, window_size=window_size)
         val_result = evaluate_model(agent, val_data, window_size, debug)
 
-        plt.plot(train_result[4])
-        plt.title(f"Episode {episode}: WTI Training")
-        plt.show()
+        plt.figure(figsize=(12, 8))
+        plt.plot(train_result[4], label="WTI")
+        plt.title(f"Episode {episode+1}: WTI Training")
+        plt.savefig(f'visuals/WTI/episode{episode+1}_WTI.png')
+        # plt.show()
 
         train_mlpd, train_md, train_std, train_profit = interpret_results(train_result[4])
 
-        plt.plot(val_result[2])
-        plt.title(f"Episode {episode}: Brent Validation")
-        plt.show()
+        plt.plot(val_result[2], label="Brent")
+        plt.title(f"Episode {episode+1}: Brent Validation")
+        plt.legend()
+        plt.savefig(f'visuals/Brent/episode{episode + 1}_Brent.png')
+        # plt.show()
 
         val_mlpd, val_md, val_std, val_profit = interpret_results(val_result[2])
         show_train_result(train_result, val_result[0], initial_offset, train_mlpd, train_md, train_std, val_mlpd, val_md, val_std)
@@ -44,7 +49,7 @@ if __name__ == "__main__":
     val_stock = "../../pricedata.csv"
     window_size = 5
     batch_size = 10
-    ep_count = 2
+    ep_count = 9
     strategy = "t-dqn"
     model_name = "rl1"
 
@@ -58,3 +63,12 @@ if __name__ == "__main__":
         print(f"Validation set (Brent Oil): Profit: {b[1][3]}; Max Loss Per Day: {b[1][0]}; Max Drawdown: {b[1][1]}; Std (Volatility): {b[1][2]}")
     except KeyboardInterrupt:
         print("Aborted!")
+
+    id2comm = {0: "WTI", 1: "Brent", 2: "NatGas", 3: "Heating"}
+    for i in range(4):
+        arr = pd.Series(get_stock_data(train_stock)[i][:1000])
+        plt.figure(figsize=(12, 8))
+        plt.plot(arr)
+        plt.title(f"{id2comm[i]} Price")
+        plt.savefig(f'visuals/{id2comm[i]}/{id2comm[i]}_price_fig.png')
+        # plt.show()

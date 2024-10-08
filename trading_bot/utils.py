@@ -13,10 +13,10 @@ def show_train_result(result, val_position, initial_offset, train_mlpd, train_md
     """
     if val_position == initial_offset or val_position == 0.0:
         print('Episode {}/{} - Train Position: {}  Val Position: USELESS  Train Loss: {:.4f}'
-                     .format(result[0], result[1], format_position(result[2]), result[3]))
+                     .format(result[0]+1, result[1]+1, format_position(result[2]), result[3]))
     else:
         print('Episode {}/{} - Train Position: {}  Val Position: {}  Train Loss: {:.4f})'
-                     .format(result[0], result[1], format_position(result[2]), format_position(val_position), result[3],))
+                     .format(result[0]+1, result[1]+1, format_position(result[2]), format_position(val_position), result[3],))
 
     print("Train - Max Loss Per Day: {}; Max Drawdown: {}; Std: {}".format(train_mlpd, train_md, train_std))
     print("Val - Max Loss Per Day: {}; Max Drawdown: {}; Std: {}".format(val_mlpd, val_md, val_std))
@@ -65,8 +65,6 @@ def get_benchmarks(df):
     result_list = []
     for i in range(4):
         arr = pd.Series(df[i][:1000])
-        plt.plot(arr)
-        plt.show()
         tup = interpret_results(arr)
         result_list.append(tup)
     return result_list
