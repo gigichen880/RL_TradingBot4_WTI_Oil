@@ -1,24 +1,17 @@
 import random
-
 from collections import deque
-
 import numpy as np
-import tensorflow as tf
 import torch
 import torch.nn as nn
 import torch.optim as optim
 
-def huber_loss(y_true, y_pred, clip_delta=1.0):
-    """Huber loss - Custom Loss Function for Q Learning
-
-    Links: 	https://en.wikipedia.org/wiki/Huber_loss
-            https://jaromiru.com/2017/05/27/on-using-huber-loss-in-deep-q-learning/
-    """
+def huber_loss(y_true, y_pred, clip_delta=torch.tensor(1.0)):
+    # Huber loss - Custom Loss Function for Q Learning
     error = y_true - y_pred
-    cond = np.abs(error) <= clip_delta
-    squared_loss = 0.5 * np.square(error)
-    quadratic_loss = 0.5 * np.square(clip_delta) + clip_delta * (np.abs(error) - clip_delta)
-    return np.mean(tf.where(cond, squared_loss, quadratic_loss))
+    cond = torch.abs(error) <= clip_delta
+    squared_loss = 0.5 * torch.square(error)
+    quadratic_loss = 0.5 * torch.square(clip_delta) + clip_delta * (torch.abs(error) - clip_delta)
+    return torch.mean(torch.where(cond, squared_loss, quadratic_loss))
 
 class NN(nn.Module):
     def __init__(self, state_size, action_size):
@@ -40,8 +33,6 @@ class NN(nn.Module):
 
 
 class Agent:
-    """ Stock Trading Bot """
-
     def __init__(self, state_size, strategy="t-dqn", reset_every=1000, pretrained = False, model_name=None, noep = 5):
         self.strategy = strategy
 
@@ -61,8 +52,6 @@ class Agent:
         self.epsilon_decay = 0.995
         self.learning_rate = 0.001
         self.noep = noep
-        # self.loss = huber_loss
-        self.loss = torch.nn.MSELoss(reduction='sum')
         self.custom_objects = {"huber_loss": huber_loss}  # important for loading the model from memory
 
         if pretrained and self.model_name is not None:
@@ -147,19 +136,10 @@ class Agent:
 
                 # estimate q-values based on current state
                 q_values = self.model(state)
-
-                # print("q_val", q_values)
-                # print("q_val_0", q_values[0])
-
                 y_pred.append(q_values[0])
                 # update the target for current action based on discounted reward
                 q_copy = q_values.detach().clone()
                 q_copy[0][action] = target
-
-                # print("target", target)
-                # print("updated q", q_copy[0])
-                # print("danger", q_values[0])
-
                 y_true.append(q_copy[0])
 
         # Double DQN
@@ -190,14 +170,9 @@ class Agent:
             raise NotImplementedError()
 
         # update q-function parameters based on huber loss gradient
-        # print("y_pred", y_pred)
-        # print("y_true", y_true)
         y_pred = torch.cat(y_pred)
         y_true = torch.cat(y_true)
-
-
-
-        loss = self.loss(y_pred, y_true)
+        loss = huber_loss(y_pred, y_true)
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
@@ -206,8 +181,6 @@ class Agent:
         # make less random and more optimal decisions
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
-
-
         return loss
 
     def save(self, episode):
