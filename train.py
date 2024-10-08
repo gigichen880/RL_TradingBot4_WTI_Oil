@@ -8,6 +8,7 @@ from trading_bot.utils import (
     get_stock_data,
     show_train_result,
     interpret_results,
+    dual_moving_average_trading,
     get_benchmarks
 )
 
@@ -29,7 +30,7 @@ def main(train_stock, val_stock, window_size, batch_size, ep_count,
         plt.figure(figsize=(12, 8))
         plt.plot(train_result[4], label="WTI")
         plt.title(f"Episode {episode+1}: WTI Training")
-        plt.savefig(f'visuals/WTI/episode{episode+1}_WTI.png')
+        plt.savefig(f'visuals2/WTI/episode{episode+1}_WTI.png')
         # plt.show()
 
         train_mlpd, train_md, train_std, train_profit = interpret_results(train_result[4])
@@ -37,7 +38,7 @@ def main(train_stock, val_stock, window_size, batch_size, ep_count,
         plt.plot(val_result[2], label="Brent")
         plt.title(f"Episode {episode+1}: Brent Validation")
         plt.legend()
-        plt.savefig(f'visuals/Brent/episode{episode + 1}_Brent.png')
+        plt.savefig(f'visuals2/Brent/episode{episode + 1}_Brent.png')
         # plt.show()
 
         val_mlpd, val_md, val_std, val_profit = interpret_results(val_result[2])
@@ -58,7 +59,7 @@ if __name__ == "__main__":
              ep_count, strategy=strategy, model_name=model_name, pretrained = False,
              debug=False, noep=5)
         b = get_benchmarks(get_stock_data(train_stock))
-        print("Benchmark (Buy-Hold) Results:")
+        print("Benchmark (Dual Moving Average) Results:")
         print(f"Training set (WTI Oil): Profit: {b[0][3]}; Max Loss Per Day: {b[0][0]}; Max Drawdown: {b[0][1]}; Std (Volatility): {b[0][2]}")
         print(f"Validation set (Brent Oil): Profit: {b[1][3]}; Max Loss Per Day: {b[1][0]}; Max Drawdown: {b[1][1]}; Std (Volatility): {b[1][2]}")
     except KeyboardInterrupt:
@@ -70,5 +71,5 @@ if __name__ == "__main__":
         plt.figure(figsize=(12, 8))
         plt.plot(arr)
         plt.title(f"{id2comm[i]} Price")
-        plt.savefig(f'visuals/{id2comm[i]}/{id2comm[i]}_price_fig.png')
+        plt.savefig(f'visuals2/{id2comm[i]}/{id2comm[i]}_price_fig.png')
         # plt.show()
