@@ -1,0 +1,58 @@
+Training set: WTI Oil; Validation set: Brent Crude Oil.
+
+Episode 1/10 - Train Position: -$18.73000  Val Position: USELESS  Train Loss: 0.0310
+Train - Max Loss Per Day: -35.38999999999942; Max Drawdown: -0.03971930175061782; Std: 13.684965708885871
+Val - Max Loss Per Day: 0.0; Max Drawdown: 0.0; Std: 0.0
+
+
+Episode 2/10 - Train Position: +$7.10000  Val Position: -$27.41000  Train Loss: 0.0080)
+Train - Max Loss Per Day: -36.8799999999992; Max Drawdown: -0.029382075924267424; Std: 11.810235465864183
+Val - Max Loss Per Day: -31.94000000000051; Max Drawdown: -0.024137407234926304; Std: 10.686413732073037
+
+
+Episode 3/10 - Train Position: -$19.32000  Val Position: USELESS  Train Loss: 0.0061
+Train - Max Loss Per Day: -34.0; Max Drawdown: -0.019153544330630805; Std: 9.229550887540125
+Val - Max Loss Per Day: 0.0; Max Drawdown: 0.0; Std: 0.0
+
+
+Episode 4/10 - Train Position: -$7.94000  Val Position: -$12.05000  Train Loss: 0.0044)
+Train - Max Loss Per Day: -36.600000000000364; Max Drawdown: -0.009974803023637367; Std: 8.120241006669184
+Val - Max Loss Per Day: -32.780000000000655; Max Drawdown: -0.015413774981065914; Std: 10.107240769545282
+
+
+Episode 5/10 - Train Position: +$0.75000  Val Position: USELESS  Train Loss: 0.0054
+Train - Max Loss Per Day: -37.20000000000073; Max Drawdown: -0.02865306016322645; Std: 11.375282742199065
+Val - Max Loss Per Day: 0.0; Max Drawdown: 0.0; Std: 0.0
+
+
+Episode 6/10 - Train Position: -$4.62000  Val Position: -$8.23000  Train Loss: 0.0036)
+Train - Max Loss Per Day: -33.70000000000073; Max Drawdown: -0.014701398157451714; Std: 7.830509915229059
+Val - Max Loss Per Day: -34.54999999999927; Max Drawdown: -0.007164718488895246; Std: 16.272506827556136
+
+
+Episode 7/10 - Train Position: -$9.35000  Val Position: +$2.42000  Train Loss: 0.0041)
+Train - Max Loss Per Day: -37.20000000000073; Max Drawdown: -0.025662273998153733; Std: 16.948574330626897
+Val - Max Loss Per Day: -34.54999999999927; Max Drawdown: -0.007157420248959278; Std: 17.652461796238015
+
+
+Episode 8/10 - Train Position: -$4.39000  Val Position: -$2.27000  Train Loss: 0.0052)
+Train - Max Loss Per Day: -37.20000000000073; Max Drawdown: -0.03278064017485695; Std: 22.118619679993266
+Val - Max Loss Per Day: -34.54999999999927; Max Drawdown: -0.006966937297564328; Std: 18.361394202731766
+
+
+Episode 9/10 - Train Position: +$20.41000  Val Position: -$18.52000  Train Loss: 0.0080)
+Train - Max Loss Per Day: -37.780000000000655; Max Drawdown: -0.03449634575151115; Std: 23.70118853760695
+Val - Max Loss Per Day: -34.54999999999927; Max Drawdown: -0.01646560482548379; Std: 21.403886292141646
+
+
+Episode 10/10 - Train Position: -$43.93000  Val Position: +$52.41000  Train Loss: 0.0106)
+Train - Max Loss Per Day: -37.780000000000655; Max Drawdown: -0.0600842529749585; Std: 23.222099826203852
+Val - Max Loss Per Day: -34.54999999999927; Max Drawdown: -0.03990707227822352; Std: 25.881071209215396
+
+
+Benchmark (Double Moving Average) Results:
+Training set (WTI Oil): Profit: -30.099999999998545; Max Loss Per Day: -31.3700000000008; Max Drawdown: -0.0032143410600826462; Std (Volatility): 2.6941831907923133
+Validation set (Brent Oil): Profit: -48.01999999999862; Max Loss Per Day: -30.469999999999345; Max Drawdown: -0.004345990463632213; Std (Volatility): 2.769189445065649
+
+Average Train Gain: -8.059; 73.22% decrease in loss
+Average Validation Gain: +1.045 (achieve positive return)
